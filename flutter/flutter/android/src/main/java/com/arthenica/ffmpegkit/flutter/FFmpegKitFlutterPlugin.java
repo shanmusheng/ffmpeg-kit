@@ -201,12 +201,17 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
         Log.d(LIBRARY_NAME, String.format("FFmpegKitFlutterPlugin %s attached to activity %s.", this,
                 activityPluginBinding.getActivity()));
-        init(activityPluginBinding.getFlutterPluginBinding().getBinaryMessenger(),
-                activityPluginBinding.getApplicationContext(),
-                activityPluginBinding.getActivity(),
-                activityPluginBinding,  // 使用 ActivityPluginBinding
-                activityPluginBinding);  // 使用 ActivityPluginBinding
+
+        // 调用 init 方法时传递正确的参数
+        init(
+                activityPluginBinding.getBinaryMessenger(),  // BinaryMessenger
+                activityPluginBinding.getContext(),          // Context
+                activityPluginBinding.getActivity(),         // Activity
+                activityPluginBinding                        // ActivityPluginBinding
+        );
     }
+
+
 
 
     @Override
@@ -664,9 +669,10 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
 
     @SuppressWarnings("deprecation")
     protected void init(final BinaryMessenger messenger, final Context context, final Activity activity,
-            final ActivityPluginBinding activityBinding) {
+                        final ActivityPluginBinding activityBinding) {
         registerGlobalCallbacks();
 
+        // 初始化 MethodChannel
         if (methodChannel == null) {
             methodChannel = new MethodChannel(messenger, METHOD_CHANNEL);
             methodChannel.setMethodCallHandler(this);
@@ -674,6 +680,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
             Log.i(LIBRARY_NAME, "FFmpegKitFlutterPlugin method channel was already initialised.");
         }
 
+        // 初始化 EventChannel
         if (eventChannel == null) {
             eventChannel = new EventChannel(messenger, EVENT_CHANNEL);
             eventChannel.setStreamHandler(this);
@@ -681,13 +688,17 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
             Log.i(LIBRARY_NAME, "FFmpegKitFlutterPlugin event channel was already initialised.");
         }
 
+        // 设置 context 和 activity
         this.context = context;
         this.activity = activity;
+
+        // 添加 ActivityResultListener
         activityBinding.addActivityResultListener(this);
 
         Log.d(LIBRARY_NAME, String.format("FFmpegKitFlutterPlugin %s initialised with context %s and activity %s.",
                 this, context, activity));
     }
+
 
     protected void uninit() {
         uninitMethodChannel();
