@@ -660,7 +660,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
 
     @SuppressWarnings("deprecation")
     protected void init(final BinaryMessenger messenger, final Context context, final Activity activity,
-                        final ActivityPluginBinding activityBinding) {
+            final ActivityPluginBinding activityBinding) {
         registerGlobalCallbacks();
 
         if (methodChannel == null) {
@@ -746,7 +746,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void abstractSessionGetAllLogs(@NonNull final Integer sessionId, @Nullable final Integer waitTimeout,
-                                             @NonNull final Result result) {
+            @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -773,7 +773,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void abstractSessionGetAllLogsAsString(@NonNull final Integer sessionId,
-                                                     @Nullable final Integer waitTimeout, @NonNull final Result result) {
+            @Nullable final Integer waitTimeout, @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -822,7 +822,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void abstractSessionThereAreAsynchronousMessagesInTransmit(@NonNull final Integer sessionId,
-                                                                         @NonNull final Result result) {
+            @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -846,7 +846,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void ffmpegSessionGetAllStatistics(@NonNull final Integer sessionId, @Nullable final Integer waitTimeout,
-                                                 @NonNull final Result result) {
+            @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -917,7 +917,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     // MediaInformationJsonParser
 
     protected void mediaInformationJsonParserFrom(@NonNull final String ffprobeJsonOutput,
-                                                  @NonNull final Result result) {
+            @NonNull final Result result) {
         try {
             final MediaInformation mediaInformation = MediaInformationJsonParser.fromWithError(ffprobeJsonOutput);
             resultHandler.successAsync(result, toMap(mediaInformation));
@@ -928,7 +928,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void mediaInformationJsonParserFromWithError(@NonNull final String ffprobeJsonOutput,
-                                                           @NonNull final Result result) {
+            @NonNull final Result result) {
         try {
             final MediaInformation mediaInformation = MediaInformationJsonParser.fromWithError(ffprobeJsonOutput);
             resultHandler.successAsync(result, toMap(mediaInformation));
@@ -985,7 +985,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void setFontDirectory(@NonNull final String fontDirectoryPath,
-                                    @Nullable final Map<String, String> fontNameMapping, @NonNull final Result result) {
+            @Nullable final Map<String, String> fontNameMapping, @NonNull final Result result) {
         if (context != null) {
             FFmpegKitConfig.setFontDirectory(context, fontDirectoryPath, fontNameMapping);
             resultHandler.successAsync(result, null);
@@ -996,7 +996,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void setFontDirectoryList(@NonNull final List<String> fontDirectoryList,
-                                        @Nullable final Map<String, String> fontNameMapping, @NonNull final Result result) {
+            @Nullable final Map<String, String> fontNameMapping, @NonNull final Result result) {
         if (context != null) {
             FFmpegKitConfig.setFontDirectoryList(context, fontDirectoryList, fontNameMapping);
             resultHandler.successAsync(result, null);
@@ -1034,7 +1034,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void setEnvironmentVariable(@NonNull final String variableName, @NonNull final String variableValue,
-                                          @NonNull final Result result) {
+            @NonNull final Result result) {
         FFmpegKitConfig.setEnvironmentVariable(variableName, variableValue);
 
         resultHandler.successAsync(result, null);
@@ -1097,7 +1097,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void mediaInformationSessionExecute(@NonNull final Integer sessionId, @Nullable final Integer waitTimeout,
-                                                  @NonNull final Result result) {
+            @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -1150,7 +1150,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void asyncMediaInformationSessionExecute(@NonNull final Integer sessionId,
-                                                       @Nullable final Integer waitTimeout, @NonNull final Result result) {
+            @Nullable final Integer waitTimeout, @NonNull final Result result) {
         final Session session = FFmpegKitConfig.getSession(sessionId.longValue());
         if (session == null) {
             resultHandler.errorAsync(result, "SESSION_NOT_FOUND", "Session not found.");
@@ -1227,7 +1227,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void setLogRedirectionStrategy(@NonNull final Integer logRedirectionStrategy,
-                                             @NonNull final Result result) {
+            @NonNull final Result result) {
         FFmpegKitConfig.setLogRedirectionStrategy(toLogRedirectionStrategy(logRedirectionStrategy));
         resultHandler.successAsync(result, null);
     }
@@ -1241,13 +1241,13 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void writeToPipe(@NonNull final String inputPath, @NonNull final String namedPipePath,
-                               @NonNull final Result result) {
+            @NonNull final Result result) {
         final WriteToPipeTask asyncTask = new WriteToPipeTask(inputPath, namedPipePath, resultHandler, result);
         asyncExecutorService.submit(asyncTask);
     }
 
     protected void selectDocument(@NonNull final Boolean writable, @Nullable final String title,
-                                  @Nullable final String type, @Nullable final String[] extraTypes, @NonNull final Result result) {
+            @Nullable final String type, @Nullable final String[] extraTypes, @NonNull final Result result) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             android.util.Log.i(LIBRARY_NAME, String.format(Locale.getDefault(),
                     "selectDocument is not supported on API Level %d", Build.VERSION.SDK_INT));
@@ -1306,7 +1306,7 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     }
 
     protected void getSafParameter(@NonNull final String uriString, @NonNull final String openMode,
-                                   @NonNull final Result result) {
+            @NonNull final Result result) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             android.util.Log.i(LIBRARY_NAME, String.format(Locale.getDefault(),
                     "getSafParameter is not supported on API Level %d", Build.VERSION.SDK_INT));
