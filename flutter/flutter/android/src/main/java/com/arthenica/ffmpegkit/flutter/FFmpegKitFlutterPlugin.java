@@ -202,16 +202,19 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
         Log.d(LIBRARY_NAME, String.format("FFmpegKitFlutterPlugin %s attached to activity %s.", this,
                 activityPluginBinding.getActivity()));
 
+        // 获取 BinaryMessenger（正确方式）
+        BinaryMessenger messenger = flutterPluginBinding.getBinaryMessenger();
+        Context context = activityPluginBinding.getActivity();  // 获取 Context
+        Activity activity = activityPluginBinding.getActivity();  // 获取 Activity
+
         // 调用 init 方法时传递正确的参数
         init(
-                activityPluginBinding.getBinaryMessenger(),  // BinaryMessenger
-                activityPluginBinding.getContext(),          // Context
-                activityPluginBinding.getActivity(),         // Activity
-                activityPluginBinding                        // ActivityPluginBinding
+                messenger,  // BinaryMessenger
+                context,    // Context
+                activity,   // Activity
+                activityPluginBinding // ActivityPluginBinding
         );
     }
-
-
 
 
     @Override
