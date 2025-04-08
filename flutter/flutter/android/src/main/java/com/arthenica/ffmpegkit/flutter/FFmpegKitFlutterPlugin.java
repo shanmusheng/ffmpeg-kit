@@ -201,9 +201,13 @@ public class FFmpegKitFlutterPlugin implements FlutterPlugin, ActivityAware, Met
     public void onAttachedToActivity(@NonNull ActivityPluginBinding activityPluginBinding) {
         Log.d(LIBRARY_NAME, String.format("FFmpegKitFlutterPlugin %s attached to activity %s.", this,
                 activityPluginBinding.getActivity()));
-        init(flutterPluginBinding.getBinaryMessenger(), flutterPluginBinding.getApplicationContext(),
-                activityPluginBinding.getActivity(), null, activityPluginBinding);
+        init(activityPluginBinding.getFlutterPluginBinding().getBinaryMessenger(),
+                activityPluginBinding.getApplicationContext(),
+                activityPluginBinding.getActivity(),
+                activityPluginBinding,  // 使用 ActivityPluginBinding
+                activityPluginBinding);  // 使用 ActivityPluginBinding
     }
+
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
